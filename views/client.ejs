@@ -1,0 +1,64 @@
+<html>
+<head>
+<script src="http://etvtmp.lmc.gatech.edu:11000/socket.io/socket.io.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<body>
+	<button id="scene1">Scene 1</button>
+	<button id="scene2">Scene 2</button>
+	<button id="scene3">Scene 3</button>
+	<div id="eventListing"></div>
+
+	<script type="text/javascript" charset="utf-8">
+		var socket = io.connect('http://etvtmp.lmc.gatech.edu:11000');
+
+		var timelineEvents = 
+		
+		socket.on('videoStart', function  (data) {
+			$("#eventListing").append('<p>' + data.message + '</p>');
+		});
+
+		socket.on('incomingEvent', function  (event) {
+			//document.write('<p>' + data.message + '</p>');
+			console.log(event);
+			var eventType = event.eventInfo.type;
+			console.log(eventType);
+			if (eventType == "newScene"){
+				handleNewScene(event.eventInfo);
+			}
+			else if (eventType == "moment"){
+				handleMoment(event.eventInfo);
+			}
+			else if (eventType == "characterEntry"){
+				handleCharacterEntry(event.eventInfo);
+			}
+		});
+		
+		function handleNewScene(eventInfo){
+			console.log("Writing new scene info");
+			$("#eventListing").append("<p><h4>"+eventInfo.data.title+"</h4></p><p>Pan scen to: "+eventInfo.data.locationX+","+eventInfo.data.locationY+"</p><p>"+$.each(eventInfo.data.characters, function(i,v) {v+"<br/>"})+"</p>");
+		}
+		function handleMoment(eventInfo){
+			console.log("Writing new moment info");	
+			$("#eventListing").append("<p><h4>Moment: "+eventInfo.data.title+"</h4></p>");
+		}
+		function handleCharacterEntry(eventInfo){
+			console.log("Writing new character entry");	
+			$("#eventListing").append("<p><h4>New character Entry: "+eventInfo.data.character+"</h4></p>");
+		}
+		
+		$(document).ready(function(){
+			$("#scene1").on("click", function(){
+				socket.emit('changeScene', {index: 0});
+			});
+			$("#scene2").on("click", function(){
+				socket.emit('changeScene', {index: 1});
+			});
+			$("#scene3").on("click", function(){
+				socket.emit('changeScene', {index: 2});
+			});			
+		});
+	</script>
+</body>
+</html>

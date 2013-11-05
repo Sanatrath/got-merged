@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game of Thrones - Season 2 Episode 4</title>
+
+  <link href="css/video-js.css" rel="stylesheet" type="text/css">
+  <script src="js/video.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://etvtmp.lmc.gatech.edu:11000/socket.io/socket.io.js"></script>
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+  <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
+
+
+</head>
+<body>
+
+  <video id="videoPlayer" class="video-js vjs-default-skin" controls preload="auto" width="1024" height="576" data-setup="{}">
+    <source src="video/game.of.thrones.s02e04.mp4" type='video/mp4' />
+  </video>
+
+<script>
+	var socket = io.connect('http://etvtmp.lmc.gatech.edu:11000');
+	
+	var triggerTimes = [15,24,51,130,137,203,368,444];
+	var sceneTimes = [15,137,368];
+	videojs("videoPlayer").ready(function(){
+		socket.emit('videoStart', {message: "The video has started"}); //send to client that the video has started
+		var myPlayer = this;
+		myPlayer.dimensions($(document).width()-20, $(document).height()-20);
+		myPlayer.play();
+		//myPlayer.requestFullScreen();
+		var currTime, lastEvent=0, match;
+		myPlayer.on('timeupdate', function(){
+			currTime = myPlayer.currentTime();
+			console.log(currTime);
+			
+			for (var i = 0; i < triggerTimes.length; i++) {
+			   if (currTime >= triggerTimes[i] && currTime <= triggerTimes[i] + 0.5){ 
+					match = triggerTimes[i];
+					if (match != lastEvent){
+						lastEvent  = triggerTimes[i];
+						socket.emit('eventBroadcast', {eventIndex: i});					
+					}
+				}
+			}
+			
+		});
+		
+		socket.on('changeSceneOnPlayer', function  (data) {
+			myPlayer.currentTime(sceneTimes[data.index]);
+		});
+	});
+</script>  
+</body>
+</html>
