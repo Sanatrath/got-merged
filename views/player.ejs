@@ -6,7 +6,7 @@
   <link href="css/video-js.css" rel="stylesheet" type="text/css">
   <script src="js/video.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://etvtmp.lmc.gatech.edu:11000/socket.io/socket.io.js"></script>
+  <script src="http://localhost:11000/socket.io/socket.io.js"></script>
   <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
   <script>
     videojs.options.flash.swf = "video-js.swf";
@@ -21,10 +21,10 @@
   </video>
 
 <script>
-	var socket = io.connect('http://etvtmp.lmc.gatech.edu:11000');
+	var socket = io.connect('http://localhost:11000');
 	
-	var triggerTimes = [15,24,51,130,137,203,368,444];
-	var sceneTimes = [15,137,368];
+	var triggerTimes = [12,85,90,132,170,204,222,238,288,303,439,448,465,584,663,683,695,725,844,900,908];
+	var sceneTimes = [12,130,303,439,663,844];
 	videojs("videoPlayer").ready(function(){
 		socket.emit('videoStart', {message: "The video has started"}); //send to client that the video has started
 		var myPlayer = this;
