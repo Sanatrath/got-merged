@@ -72,16 +72,9 @@
 				    owl.trigger('owl.prev');
 				  })
 
-				  	/*$("#scene1").on("click", function(){
-						socket.emit('changeScene', {index: 0});
-					});*/
 					$("#scene1").on("click", function(){
-						//socket.emit('changeScene', {index: 1});
 						$('#imageFullScreen').smartZoom("pan",-1125,-125,2000);
 					});
-					/*$("#scene3").on("click", function(){
-						socket.emit('changeScene', {index: 2});
-					});*/		
 					
 					$('#thumbnails .item').on("click",function(){
 						console.log("clicked");
