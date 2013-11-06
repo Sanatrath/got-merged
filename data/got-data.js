@@ -3,6 +3,7 @@ exports.eventInfo = [
 		"event": 0,
         "type": "newScene",
         "data": {
+			"scene" : 0,
             "locationX": 400,
             "locationY": 400,
             "characters": [{ "name": "Solder_1", "family": "lannister"},
@@ -32,6 +33,7 @@ exports.eventInfo = [
 		"event": 3,
         "type": "newScene",
         "data": {
+			"scene" : 1,
             "locationX": 170,
             "locationY": 150,
             "characters": [{ "name": "Joffrey_Baratheon", "family": "baratheon"},
@@ -98,6 +100,7 @@ exports.eventInfo = [
         "event": 9,
         "type": "newScene",
         "data": {
+			"scene" : 2,
             "locationX": 670,
             "locationY": 230,
             "characters": [{"name": "Arya_Stark", "family": "stark"},
@@ -109,6 +112,7 @@ exports.eventInfo = [
         "event": 10,
         "type": "newScene",
         "data": {
+			"scene" : 3,
             "locationX": 440,
             "locationY": 430,
             "characters": [{"name": "Catelyn_Stark", "family": "stark"},
@@ -146,6 +150,7 @@ exports.eventInfo = [
         "event": 14,
         "type": "newScene",
         "data": {
+			"scene" : 4,
             "locationX": 140,
             "locationY": 530,
             "characters": [{"name": "Catelyn_Stark", "family": "stark"},
@@ -183,6 +188,7 @@ exports.eventInfo = [
         "event": 18,
         "type": "newScene",
         "data": {
+			"scene" : 5,
             "locationX": 740,
             "locationY": 330,
             "characters": [{"name": "Daenerys_Targaryen", "family": "targaryen"},

@@ -103,7 +103,7 @@ padding: 0px;
   border-radius: 3px;
   text-align: center;
   height: 60px;
-  
+  display: none;
 }
 #thumbnails .item h1{
 	line-height: 60px;
@@ -290,4 +290,8 @@ a{
 	//margin-top:-14px;
 	margin-left:-11px;
 	opacity: 0
+}
+
+.next{
+	display: none;
 }

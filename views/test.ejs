@@ -18,10 +18,11 @@
 		<![endif]-->
 <script>
 			var lastX, lastY;
-
+			var maxScene = 0;
+			var owl;
 			$(document).ready(function() {
-
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
+				
 				$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
 				
 				function zoomButtonClickHandler(e){
@@ -35,7 +36,7 @@
 			});
 			$(window).load(function(){
 				//$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':300},300);			
-				var owl = $("#thumbnails");
+				owl = $("#thumbnails");
  
 				  owl.owlCarousel({
 				      items : 3.2, 
@@ -45,9 +46,24 @@
 				      itemsMobile : false,
 				      rewindNav : false,
 				      responsive: false,
-						      
-				  });
-				 
+				      afterMove: function(){
+							setTimeout(function(){
+		                    var style = window.getComputedStyle($("#thumbnails .owl-wrapper").get(0));
+							var matrix = new WebKitCSSMatrix(style.webkitTransform);
+							var transformPosition = matrix.m41;
+							var calculatedPosition = (maxScene)*320;
+							if ( calculatedPosition == Math.abs(transformPosition)){
+								$(".next").hide();
+								$(".pause").show();
+							} 
+							else{
+								$(".next").show();
+								$(".pause").hide();
+							}	                    	
+                    	},300)
+							console.log("carousel moved");
+						}
+					});				 
 				  
 				  $(".next").click(function(){
 				    owl.trigger('owl.next');
@@ -56,104 +72,38 @@
 				    owl.trigger('owl.prev');
 				  })
 
-				  	$("#scene1").on("click", function(){
+				  	/*$("#scene1").on("click", function(){
 						socket.emit('changeScene', {index: 0});
-					});
-					$("#scene2").on("click", function(){
-						socket.emit('changeScene', {index: 1});
+					});*/
+					$("#scene1").on("click", function(){
+						//socket.emit('changeScene', {index: 1});
 						$('#imageFullScreen').smartZoom("pan",-1125,-125,2000);
 					});
-					$("#scene3").on("click", function(){
+					/*$("#scene3").on("click", function(){
 						socket.emit('changeScene', {index: 2});
-					});		
+					});*/		
 					
-				/*	var $child = $('#thumbnails .item').click(function () {
-					    var index = $child.index(this);
-					    $(".item").removeClass('clicked');
-					    $(this).addClass('clicked');
-					    owl.trigger('owl.goTo',index);
-					    $("#moments img").animate({marginTop:'283px', opacity:0},300);
-
+					$('#thumbnails .item').on("click",function(){
+						console.log("clicked");
+						$(".item").removeClass('clicked');
+						$(this).addClass('clicked');
+						console.log($('#thumbnails .item').index(this));
+						 owl.trigger('owl.goTo',$('#thumbnails .item').index(this));
 					});
-				*/	
+					
 					$(".circle").delay(300).show();
 
-				/*
-					$('#thumbnails .item').on('click', function(event){
-						var $this = $(this);
-						var index = $(this).index();
-						console.log(index);
-					    $this.css('background','#7fc242').addClass('clicked');
-					    owl.trigger('owl.goTo',index);
-				    
-				 	});
-*/
 				$(".moment").click(function(){
 				    $("#moments img").animate({marginTop:'-14px', opacity:1},300);
 				  })
 		});
-		</script>
-</head>
-<body>
-<div id="app">
-	<div class="name"><h1>Scene Name</h1></div>
-	<div id="pageContent">
-		<div id="imgContainer"> 
-			 
-<div id="imageFullScreen">
-			 	
-			 	<div id="big-circle" class="circle big">
-				 		
-			    </div>
-			    <img class="mapper" src="assets/map.jpg" alt="map"/>
-			 </div>
-
-			 <!-- <img id="imageFullScreen" src="assets/map.jpg" alt="map"/> -->
-			 	
-			 </div>
-		</div>
 		
-		
-		<div id="moments">
-			<img src="assets/iron_throne_card.png" />
-	</div>
-	</div>
-
-	<div id="positionButtonDiv">
-		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
-		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
-	</div>
-	
-	<div id="scenes">
-	<div id="thumbnails" class="owl-carousel owl-theme">
-	  <div>&nbsp</div>
-	  <div>&nbsp</div>
-	  <div class="item orange"><h1>1</h1></div>
-	  <div class="item darkCyan" id="scene2"><h1>2</h1></div>
-	  <div class="item yellow" id="scene3"><h1>3</h1></div>
-	  <div class="item forestGreen"><h1>4</h1></div>
-	  <div class="item dodgerBlue moment"><h1>5</h1></div>
-	  <div class="item skyBlue"><h1>6</h1></div>
-	  <div class="item zombieGreen"><h1>7</h1></div>
-	  <div class="item violet"><h1>8</h1></div>
-	  <div class="item steelGray"><h1>9</h1></div>
-	  <div class="item dodgerBlue"><h1>10</h1></div>
-	  <div class="item darkCyan"><h1>11</h1></div>
-	  <div class="item zombieGreen"><h1>12</h1></div>
-	  <div class="item orange"><h1>13</h1></div>
-	</div>
-	 
-	 <script type="text/javascript" charset="utf-8">
-		var socket = io.connect('http://localhost:11000');
-
-		var timelineEvents = 
-		
+			var socket = io.connect('http://localhost:11000');		
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
 
 		socket.on('incomingEvent', function  (event) {
-			//document.write('<p>' + data.message + '</p>');
 			console.log(event);
 			var eventType = event.eventInfo.type;
 			console.log(eventType);
@@ -166,7 +116,6 @@
 			else if (eventType == "character"){
 				handleCharacterEntry(event.eventInfo);
 			}
-
 		});
 		
 		function handleNewScene(eventInfo){
@@ -184,6 +133,15 @@
 				lastY = eventInfo.data.locationY;			
 	       	}
 	       	getCharacters(eventInfo.data.characters);
+			$(".item").removeClass('clicked');
+			$("#scene"+eventInfo.data.scene).on("click", function(){
+				socket.emit('changeScene', {index: eventInfo.data.scene});})
+				.show().addClass('clicked');
+			console.log("index:"+eventInfo.data.scene);
+			owl.trigger('owl.goTo',eventInfo.data.scene);
+			if (eventInfo.data.scene > maxScene)
+				maxScene= eventInfo.data.scene;
+			console.log("maxScene:"+maxScene);
 		}
 		function handleMoment(eventInfo){
 			console.log("yeah");	
@@ -228,10 +186,59 @@
 					break;
 			}
 		}
-			
+		</script>
+</head>
+<body>
+<div id="app">
+	<div class="name"><h1>Scene Name</h1></div>
+	<div id="pageContent">
+		<div id="imgContainer"> 
+			 
+<div id="imageFullScreen">
+			 	
+			 	<div id="big-circle" class="circle big">
+				 		
+			    </div>
+			    <img class="mapper" src="assets/map.jpg" alt="map"/>
+			 </div>
+
+			 <!-- <img id="imageFullScreen" src="assets/map.jpg" alt="map"/> -->
+			 	
+			 </div>
+		</div>
 		
-	</script>
+		
+		<div id="moments">
+			<img src="assets/iron_throne_card.png" />
+	</div>
+	</div>
+
+	<div id="positionButtonDiv">
+		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
+		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
+	</div>
 	
+	<div id="scenes">
+	<div id="thumbnails" class="owl-carousel owl-theme">
+	  <div>&nbsp;</div>
+	  <div>&nbsp;</div>
+		<div id="scene0" class="item orange">
+			<img src="assets/timeline/scene0.jpg"/>
+		</div>
+		<div id="scene1" class="item orange">
+			<img src="assets/timeline/scene1.jpg"/>
+		</div>
+		<div id="scene2" class="item orange">
+			<img src="assets/timeline/scene2.jpg"/>
+		</div>
+		<div id="scene3" class="item orange">
+			<img src="assets/timeline/scene3.jpg"/>
+		</div>
+		<div id="scene4" class="item orange">
+			<img src="assets/timeline/scene4.jpg"/>
+		</div>
+	</div>
+	 	
 	  <a class="move-left btn prev">
 		  <img src="assets/slider-left.png" />
 	  </a>
@@ -240,6 +247,10 @@
 		  
 		  
 	  </a>
+	  <a class="move-right pause btn"> 
+		  <img src="assets/pause.png" />
+	  </a>
+	  
 	</div>
 	
 
