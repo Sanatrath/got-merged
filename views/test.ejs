@@ -20,6 +20,7 @@
 			var lastX, lastY;
 			var maxScene = 0;
 			var owl;
+			var flag = 0;
 			$(document).ready(function() {
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
 				
@@ -71,10 +72,13 @@
 				    owl.trigger('owl.prev');
 				  })
 
-					$("#scene1").on("click", function(){
-						$('#imageFullScreen').smartZoom("pan",-1125,-125,2000);
-					});
-					
+				//  $("#scene1").on("click", function(){
+				//		$('#imageFullScreen').smartZoom("pan",-1125,-125,2000);
+				//	});
+				
+
+				// Interactions on the event carousel at the bottom
+
 					$('#thumbnails .item').on("click",function(){
 						console.log("clicked");
 						$(".item").removeClass('clicked');
@@ -90,7 +94,7 @@
 				  })
 		});
 		
-			var socket = io.connect('http://localhost:11000');		
+        var socket = io.connect('http://localhost:11000');		
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
@@ -110,22 +114,43 @@
 		});
 		
 		function handleNewScene(eventInfo){
+			
 			console.log("Writing new scene info");
+<<<<<<< HEAD
 			console.log(eventInfo);
 			if(eventInfo.event == '0'){
 				$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':300}, 300);	
+=======
+
+			//The very first scene we zoom into the map
+			if(eventInfo.event == '0' && flag == 0){
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':400}, 300);	
+>>>>>>> 3dfc7577375377f012c85e04b218226703ac5f05
 				lastX = 100;
 				lastY = 300;
+				flag=1;
+			} 
 
-			} else	{
-				$('#imageFullScreen').smartZoom("pan",-(eventInfo.data.locationX - lastX),-(eventInfo.data.locationY - lastY),2000);
+			else{
+
+					console.log(lastX);
+				console.log(lastY);	
+				console.log(eventInfo.data.locationX - lastX);
+				console.log(eventInfo.data.locationY - lastY);
+
+				$('#imageFullScreen').smartZoom("pan",(eventInfo.data.locationX - lastX),(eventInfo.data.locationY - lastY),2000);
 				
 				$(".circle.big").css({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
 				lastX = eventInfo.data.locationX;
-				lastY = eventInfo.data.locationY;			
+				lastY = eventInfo.data.locationY;	
+					console.log(lastX);
+				console.log(lastY);	
+				
 	       	}
+	       	
 	       	getCharacters(eventInfo.data.characters);
 			$(".item").removeClass('clicked');
+			
 			$("#scene"+eventInfo.data.scene).on("click", function(){
 				socket.emit('changeScene', {index: eventInfo.data.scene});})
 				.show().addClass('clicked');
@@ -133,6 +158,7 @@
 			if (eventInfo.data.scene > maxScene)
 				maxScene= eventInfo.data.scene;
 		}
+
 		function handleMoment(eventInfo){
 			console.log("yeah. I am trying to show you a moment");	
 			console.log(eventInfo);	

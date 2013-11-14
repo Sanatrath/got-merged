@@ -4,8 +4,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 0,
-            "locationX": 400,
-            "locationY": 400,
+            "locationX": 100,
+            "locationY": 300,
             "characters": [{ "name": "Solder_1", "family": "lannister"},
                            { "name": "Solder_2", "family": "lannister"}]
     
