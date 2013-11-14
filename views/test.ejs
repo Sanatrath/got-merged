@@ -119,11 +119,17 @@
 
 			console.log(eventInfo);	
 
+
+
 			//The very first scene we zoom into the map
 			if(eventInfo.event == '0' && flag == 0){
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':400}, 300);	
-				lastX = 100;
-				lastY = 300;
+				
+				lastX = eventInfo.data.locationX;
+				lastY = eventInfo.data.locationY;
+
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY}, 300);	
+
+
 				flag=1;
 			} 
 
