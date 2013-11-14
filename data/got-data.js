@@ -89,7 +89,7 @@ exports.eventInfo = [
         }
     },
      {
-        "event": 8,
+        "event": 9,
         "type": "moment",
         "data": {
             "title": "Sansa's engagement to Joffrey",
@@ -97,7 +97,7 @@ exports.eventInfo = [
         }
     },
      {
-        "event": 9,
+        "event": 10,
         "type": "newScene",
         "data": {
 			"scene" : 2,
@@ -109,7 +109,7 @@ exports.eventInfo = [
         }
     },
     {
-        "event": 10,
+        "event": 11,
         "type": "newScene",
         "data": {
 			"scene" : 3,
@@ -121,7 +121,7 @@ exports.eventInfo = [
         }
     },
     {
-        "event": 11,
+        "event": 12,
         "type": "moment",
         "data": {
             "title": "Baelish betrayed Ned Stark",
@@ -130,7 +130,7 @@ exports.eventInfo = [
     },
 
     {
-        "event": 12,
+        "event": 13,
         "type": "moment",
         "data": {
             "title": "Baelish betrayed Ned Stark",
@@ -139,7 +139,7 @@ exports.eventInfo = [
     },
     
     {
-        "event": 13,
+        "event": 14,
         "type": "moment",
         "data": {
             "title": "Silent Sisters",
@@ -147,7 +147,7 @@ exports.eventInfo = [
         }
     },
      {
-        "event": 14,
+        "event": 15,
         "type": "newScene",
         "data": {
 			"scene" : 4,
@@ -160,7 +160,7 @@ exports.eventInfo = [
         }
     },
      {
-        "event": 15,
+        "event": 16,
         "type": "moment",
         "data": {
             "title": "Baratheon crown/ symbol of stag",
@@ -169,7 +169,7 @@ exports.eventInfo = [
     },
 
      {
-        "event": 16,
+        "event": 17,
         "type": "moment",
         "data": {
             "title": "Lord of light",
@@ -177,7 +177,7 @@ exports.eventInfo = [
         }
     },
      {
-        "event": 17,
+        "event": 18,
         "type": "moment",
         "data": {
             "title": "Salt and smoke",
@@ -185,7 +185,7 @@ exports.eventInfo = [
         }
     },
     {
-        "event": 18,
+        "event": 19,
         "type": "newScene",
         "data": {
 			"scene" : 5,
@@ -199,7 +199,7 @@ exports.eventInfo = [
         }
     },
     {
-        "event": 19,
+        "event": 20,
         "type": "moment",
         "data": {
             "title": "Mother of dragons",
@@ -207,12 +207,12 @@ exports.eventInfo = [
         }
     },
     {
-        "event": 20,
+        "event": 21,
         "type": "moment",
         "data": {
             "title": "Trader of spices",
             "timestamp":908
         }
-    },
+    }
 
 ];

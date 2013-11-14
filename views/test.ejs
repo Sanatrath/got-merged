@@ -61,7 +61,6 @@
 								$(".pause").hide();
 							}	                    	
                     	},300)
-							console.log("carousel moved");
 						}
 					});				 
 				  
@@ -97,7 +96,6 @@
 		});
 
 		socket.on('incomingEvent', function  (event) {
-			console.log(event);
 			var eventType = event.eventInfo.type;
 			console.log(eventType);
 			if (eventType == "newScene"){
@@ -113,6 +111,7 @@
 		
 		function handleNewScene(eventInfo){
 			console.log("Writing new scene info");
+			console.log(eventInfo);
 			if(eventInfo.event == '0'){
 				$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':300}, 300);	
 				lastX = 100;
@@ -130,14 +129,13 @@
 			$("#scene"+eventInfo.data.scene).on("click", function(){
 				socket.emit('changeScene', {index: eventInfo.data.scene});})
 				.show().addClass('clicked');
-			console.log("index:"+eventInfo.data.scene);
 			owl.trigger('owl.goTo',eventInfo.data.scene);
 			if (eventInfo.data.scene > maxScene)
 				maxScene= eventInfo.data.scene;
-			console.log("maxScene:"+maxScene);
 		}
 		function handleMoment(eventInfo){
-			console.log("yeah");	
+			console.log("yeah. I am trying to show you a moment");	
+			console.log(eventInfo);	
 			
 		}
 		function handleCharacterEntry(eventInfo){
@@ -149,8 +147,6 @@
 		function getCharacters(characterInfo){
 			switch (characterInfo.length) {
 				case 2:
-					console.log("2 people");
-					console.log(characterInfo);
 					$('#big-circle').append('<div class="circle one"></div> <div class="circle two"></div>');
 
 					var family = characterInfo[0].family;
