@@ -116,16 +116,12 @@
 		function handleNewScene(eventInfo){
 			
 			console.log("Writing new scene info");
-<<<<<<< HEAD
-			console.log(eventInfo);
-			if(eventInfo.event == '0'){
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':300}, 300);	
-=======
+
+			console.log(eventInfo);	
 
 			//The very first scene we zoom into the map
 			if(eventInfo.event == '0' && flag == 0){
 				$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':400}, 300);	
->>>>>>> 3dfc7577375377f012c85e04b218226703ac5f05
 				lastX = 100;
 				lastY = 300;
 				flag=1;
@@ -138,7 +134,7 @@
 				console.log(eventInfo.data.locationX - lastX);
 				console.log(eventInfo.data.locationY - lastY);
 
-				$('#imageFullScreen').smartZoom("pan",(eventInfo.data.locationX - lastX),(eventInfo.data.locationY - lastY),2000);
+				$('#imageFullScreen').smartZoom("pan",(lastX - eventInfo.data.locationX),(lastY - eventInfo.data.locationY),2000);
 				
 				$(".circle.big").css({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
 				lastX = eventInfo.data.locationX;
