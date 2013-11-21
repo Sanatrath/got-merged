@@ -4,8 +4,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 0,
-            "locationX": 100,
-            "locationY": 300,
+            "locationX": 193,
+            "locationY": 182,
             "characters": [{ "name": "Solder_1", "family": "lannister"},
                            { "name": "Solder_2", "family": "lannister"}]
     
@@ -35,8 +35,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 1,
-            "locationX": 170,
-            "locationY": 150,
+            "locationX": 337,
+            "locationY": 210,
             "characters": [{ "name": "Joffrey_Baratheon", "family": "baratheon"},
                            {"name": "Sansa_Stark", "family": "stark"},
                            {"name": "Lancel_Lannister", "family": "lannister"}]
@@ -96,8 +96,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 2,
-            "locationX": 670,
-            "locationY": 230,
+            "locationX": 302,
+            "locationY": 163,
             "characters": [{"name": "Arya_Stark", "family": "stark"},
                            {"name": "Hot_Pie", "family": "unknown"},
                            {"name": "Gendry", "family": "baratheon"} ]
@@ -108,8 +108,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 3,
-            "locationX": 440,
-            "locationY": 430,
+            "locationX": 369,
+            "locationY": 273,
             "characters": [{"name": "Catelyn_Stark", "family": "stark"},
                            {"name": "Petyr_Baelish", "family": "unknown"},
                            {"name": "Eddard_Stark", "family": "stark"}]
@@ -149,8 +149,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 4,
-            "locationX": 140,
-            "locationY": 530,
+            "locationX": 369,
+            "locationY": 273,
             "characters": [{"name": "Catelyn_Stark", "family": "stark"},
                            {"name": "Renly_Baratheon", "family": "baratheon"},
                            {"name": "Stannis_Baratheon", "family": "baratheon"},
@@ -180,8 +180,8 @@ exports.eventInfo = [
         "type": "newScene",
         "data": {
 			"scene" : 5,
-            "locationX": 740,
-            "locationY": 330,
+            "locationX": 391,
+            "locationY": 185,
             "characters": [{"name": "Daenerys_Targaryen", "family": "targaryen"},
                            {"name": "Jorah_Mormon", "family": "unknown"},
                            {"name": "Stannis_Baratheon", "family": "baratheon"},
