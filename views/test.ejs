@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=1024, initial-scale=1.0">
+<meta name="viewport" content="width=1024, initial-scale=1.0 user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Game of Thrones</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
-<script src="http://128.61.56.242:11000/socket.io/socket.io.js"></script>
+<script src="http://localhost:11000/socket.io/socket.io.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/e-smart-zoom-jquery.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
@@ -23,16 +23,15 @@
 			var flag = 0;
 			$(document).ready(function() {
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
-				
+			/*	
 				$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
-				
 				function zoomButtonClickHandler(e){
-			    	var scaleToAdd = 1.5;
+			    	var scaleToAdd = 1;
 					if(e.target.id == 'zoomOutButton')
 						scaleToAdd = -scaleToAdd;
 					$('#imageFullScreen').smartZoom('zoom', scaleToAdd);
 			    }
-				
+				*/
 				
 			});
 			$(window).load(function(){			
@@ -83,12 +82,12 @@
 					
 					$(".circle").delay(300).show();
 
-				$(".moment").click(function(){
-				    $("#moments img").animate({marginTop:'-14px', opacity:1},300);
-				  })
+		     		$(".moment").click(function(){
+			     	    $("#moments img").animate({marginTop:'-14px', opacity:1},300);
+				   })
 		});
 		
-        var socket = io.connect('http://128.61.56.242:11000');		
+        var socket = io.connect('http://localhost:11000');		
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
@@ -113,18 +112,13 @@
 		function handleNewScene(eventInfo){
 			
 			console.log("Writing new scene info");
-
 			console.log(eventInfo);	
 			
 			//The very first scene we zoom into the map
-			if(eventInfo.event == '0' && flag == 0){
-				
+			if(eventInfo.event == '0' && flag == 0){				
 				lastX = eventInfo.data.locationX;
 				lastY = eventInfo.data.locationY;
-				
-                x="100px";
-				y="400px";
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 30);
 
 				flag=1;
 			} 
@@ -196,7 +190,9 @@
 </head>
 <body>
 <div id="app">
+<!--
 	<div class="name"><h1>Scene Name</h1></div>
+ -->
 	<div id="pageContent">
 		<div id="imgContainer"> 
 			 
@@ -219,10 +215,12 @@
 	</div>
 	</div>
 
+	<!--
 	<div id="positionButtonDiv">
 		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
 		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
 	</div>
+	-->
 	
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
