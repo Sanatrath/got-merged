@@ -222,26 +222,11 @@ a{
 	border: none;
 }
 
-.one {
-	display: block;
-    left: 0px;
-    top: 0px;
-    
+.small {
+	display: block;   
 }
 
-.two {
-	display: block;
-    right: -5px;
-    top: 0px;
-    
-}
-
-.three {
-	display: block;
-    bottom: -10px;
-    left: 20px;
-    background: url('../assets/headshots/stark/Sansa_Stark.png') center;
-}
+.nametag { font-size:3px; position:relative; left: 12px; background: #fff; text-align: center;}
 
 @-webkit-keyframes pop-in {
 0% { opacity: 0; -webkit-transform: scale(0.5); }
