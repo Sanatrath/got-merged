@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=1024, initial-scale=1.0">
+<meta name="viewport" content="width=1024, initial-scale=1.0 user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Game of Thrones</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
@@ -23,16 +23,15 @@
 			var flag = 0;
 			$(document).ready(function() {
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
-				
+			/*	
 				$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
-				
 				function zoomButtonClickHandler(e){
-			    	var scaleToAdd = 1.5;
+			    	var scaleToAdd = 1;
 					if(e.target.id == 'zoomOutButton')
 						scaleToAdd = -scaleToAdd;
 					$('#imageFullScreen').smartZoom('zoom', scaleToAdd);
 			    }
-				
+				*/
 				
 			});
 			$(window).load(function(){			
@@ -83,9 +82,9 @@
 					
 					$(".circle").delay(300).show();
 
-				$(".moment").click(function(){
-				    $("#moments img").animate({marginTop:'-14px', opacity:1},300);
-				  })
+		     		$(".moment").click(function(){
+			     	    $("#moments img").animate({marginTop:'-14px', opacity:1},300);
+				   })
 		});
 		
         var socket = io.connect('http://localhost:11000');		
@@ -115,13 +114,18 @@
 			console.log(eventInfo);	
 			
 			//The very first scene we zoom into the map
-			if(eventInfo.event == '0' && flag == 0){
-				
+			if(eventInfo.event == '0' && flag == 0){				
 				lastX = eventInfo.data.locationX;
+<<<<<<< HEAD
 				lastY = eventInfo.data.locationY;				
                 x="100px";
 				y="400px";
 				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
+=======
+				lastY = eventInfo.data.locationY;
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 30);
+
+>>>>>>> fa53180f94aa308a110e88363db28db3c6b9b6f5
 				flag=1;
 					
 			} 
@@ -275,7 +279,9 @@
 </head>
 <body>
 <div id="app">
+<!--
 	<div class="name"><h1>Scene Name</h1></div>
+ -->
 	<div id="pageContent">
 		<div id="imgContainer"> 
 			 
@@ -298,10 +304,12 @@
 	</div>
 	</div>
 
+	<!--
 	<div id="positionButtonDiv">
 		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
 		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
 	</div>
+	-->
 	
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
