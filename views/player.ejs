@@ -23,7 +23,7 @@
 <script>
 	var socket = io.connect('http://localhost:11000');
 	
-	var triggerTimes = [12,85,90,130,132,170,204,222,238,288,303,439,448,465,584,663,683,695,725,844,900,908];
+	var triggerTimes = [12,85,90,130,132,170,204,222,238,303,439,448,465,584,663,695,725,844,900,908];
 	var sceneTimes = [12,130,303,439,663,844];
 	
 	videojs("videoPlayer").ready(function(){
@@ -33,7 +33,7 @@
 		myPlayer.dimensions($(document).width()-20, $(document).height()-20);
 		myPlayer.play();
 		//myPlayer.requestFullScreen();
-		var currTime, lastEvent=0, match, activeScene;
+		var currTime, lastEvent=0, lastScene = 0, match, activeScene;
 		myPlayer.on('timeupdate', function(){
 			currTime = myPlayer.currentTime();
 			
@@ -41,6 +41,10 @@
 			   if (currTime >= triggerTimes[i] && currTime <= triggerTimes[i] + 0.5){ 
 					match = triggerTimes[i];
 					if (match != lastEvent){
+						if ($.inArray( match, sceneTimes) != -1){
+							console.log("the scene type is a new scene");
+							lastScene = match;
+						}
 						lastEvent  = triggerTimes[i];
 						socket.emit('eventBroadcast', {eventIndex: i});
 					}
@@ -49,8 +53,9 @@
 			for (var i = 0; i < sceneTimes.length -1; i++) { //-1 to not loop of the end-of-video timestamp
 				if (currTime > sceneTimes[i] && currTime < sceneTimes[i+1]){
 					activeScene = sceneTimes[i];
-					if (activeScene != lastEvent){
-						lastEvent = activeScene;
+					if (activeScene != lastScene){
+						console.log("triggered change of scene");
+						lastScene = activeScene;
 						socket.emit('eventBroadcast', {eventIndex: triggerTimes.indexOf(activeScene)});
 					}
 				}

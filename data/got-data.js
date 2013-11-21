@@ -16,6 +16,7 @@ exports.eventInfo = [
 		"type": "moment",
         "data": {
             "title": "Moment about king of the north",
+			"description": "",
             "timestamp" : 85
         }
     },	
@@ -77,6 +78,7 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "White Cloak",
+			"description": "The white cloak is a symbol of the Kingsguard, an elite brotherhood of seven knights sworn to protect the king. They are meant to be the pinnacle of knightly virtue and typically serve in the order for life.",
             "timestamp": 222
         }
     },
@@ -85,15 +87,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Jaime killing Mad King",
+			"description": "Jaime Lannister served as a member of King Aerys II's Kingsguard. Despite being sworn to protect him, Jaime eventually turned his sword on the insane monarch, slaying him before the Iron Throne itself.",
             "timestamp":238
-        }
-    },
-     {
-        "event": 9,
-        "type": "moment",
-        "data": {
-            "title": "Sansa's engagement to Joffrey",
-            "timestamp":288
         }
     },
      {
@@ -125,6 +120,7 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Baelish betrayed Ned Stark",
+			"description": "",
             "timestamp":448
         }
     },
@@ -133,7 +129,8 @@ exports.eventInfo = [
         "event": 13,
         "type": "moment",
         "data": {
-            "title": "Baelish betrayed Ned Stark",
+            "title": "Baelish's feelings for Catelyn",
+			"description": "Petyr Baelish was fostered at Riverrun alongside Catelyn and Lysa Tully. There he grew to love Catelyn, despite the fact that he was too low born to ever hope to wed her. He once challenged Catelyn's betrothed, Brandon Stark, to a duel which he lost. Following this, Hoster Tully soon forced him to leave Riverrun.",
             "timestamp":465
         }
     },
@@ -143,6 +140,7 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Silent Sisters",
+			"description": "The Silent Sisters are a religious order of women who are sworn to tend the dead. These women take vows of silence and prepare bodies for funeral. To signify their holy status, they wear large back braces painted with the Seven Pointed Star.",
             "timestamp":584
         }
     },
@@ -160,19 +158,11 @@ exports.eventInfo = [
         }
     },
      {
-        "event": 16,
-        "type": "moment",
-        "data": {
-            "title": "Baratheon crown/ symbol of stag",
-            "timestamp":683
-        }
-    },
-
-     {
         "event": 17,
         "type": "moment",
         "data": {
             "title": "Lord of light",
+			"description": "R'hllor is a god of fire and light whose religion is based in the east. His religion is based in the belief that there is a single, all powerful god who provides life and light.  Stannis is one of the first lords in Westeros to adopt the religion, thanks largely to the priestess Melisandre.",
             "timestamp":695
         }
     },
@@ -181,6 +171,7 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Salt and smoke",
+			"description": "The Warrior of Light is the reincarnation of Azor Ahai, a legendary warrior who will wield the flaming sword Lightbringer against the coming darkness. According to prophesy, he will be reborn 'amidst smoke and salt'.",
             "timestamp":725
         }
     },
@@ -203,6 +194,7 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Mother of dragons",
+			"description": "",
             "timestamp":900
         }
     },
@@ -210,9 +202,9 @@ exports.eventInfo = [
         "event": 21,
         "type": "moment",
         "data": {
-            "title": "Trader of spices",
+            "title": "Summer Isles",
+			"description": "The Summer Isles are a large archipelago of islands that exist far to the south-east of Westeros.",
             "timestamp":908
         }
     }
-
 ];
