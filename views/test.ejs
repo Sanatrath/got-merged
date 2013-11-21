@@ -25,12 +25,13 @@
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
 				
 				$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
-				
+			/*	
 				function zoomButtonClickHandler(e){
 			    	var scaleToAdd = 1.5;
 					if(e.target.id == 'zoomOutButton')
 						scaleToAdd = -scaleToAdd;
 					$('#imageFullScreen').smartZoom('zoom', scaleToAdd);
+					*/
 			    }
 				
 				
@@ -119,19 +120,16 @@
 			if(eventInfo.event == '0' && flag == 0){
 				
 				lastX = eventInfo.data.locationX;
-<<<<<<< HEAD
+
 				lastY = eventInfo.data.locationY;				
                 x="100px";
 				y="400px";
 				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
-=======
 				lastY = eventInfo.data.locationY;
 				
                 x="100px";
 				y="400px";
 				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
-
->>>>>>> fa53180f94aa308a110e88363db28db3c6b9b6f5
 				flag=1;
 					
 			} 
@@ -307,12 +305,12 @@
 			<img src="assets/iron_throne_card.png" />
 	</div>
 	</div>
-
+<!--
 	<div id="positionButtonDiv">
 		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
 		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
 	</div>
-	
+-->	
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
 	  <div>&nbsp;</div>
