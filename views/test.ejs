@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Game of Thrones</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
-<script src="http://localhost:11000/socket.io/socket.io.js"></script>
+<script src="http://128.61.56.242:11000/socket.io/socket.io.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/e-smart-zoom-jquery.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
@@ -35,8 +35,7 @@
 				
 				
 			});
-			$(window).load(function(){
-				//$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':300},300);			
+			$(window).load(function(){			
 				owl = $("#thumbnails");
  
 				  owl.owlCarousel({
@@ -72,12 +71,7 @@
 				    owl.trigger('owl.prev');
 				  })
 
-				//  $("#scene1").on("click", function(){
-				//		$('#imageFullScreen').smartZoom("pan",-1125,-125,2000);
-				//	});
-				
-
-				// Interactions on the event carousel at the bottom
+			 // Interactions on the event carousel at the bottom
 
 					$('#thumbnails .item').on("click",function(){
 						console.log("clicked");
@@ -94,7 +88,7 @@
 				  })
 		});
 		
-        var socket = io.connect('http://localhost:11000');		
+        var socket = io.connect('http://128.61.56.242:11000');		
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
@@ -104,12 +98,15 @@
 			console.log(eventType);
 			if (eventType == "newScene"){
 				handleNewScene(event.eventInfo);
+				console.log("socket emit:");
+				console.log( event);
 			}
 			else if (eventType == "moment"){
 				handleMoment(event.eventInfo);
 			}
 			else if (eventType == "character"){
 				handleCharacterEntry(event.eventInfo);
+
 			}
 		});
 		
@@ -118,37 +115,29 @@
 			console.log("Writing new scene info");
 
 			console.log(eventInfo);	
-
-
-
+			
 			//The very first scene we zoom into the map
 			if(eventInfo.event == '0' && flag == 0){
 				
 				lastX = eventInfo.data.locationX;
 				lastY = eventInfo.data.locationY;
-
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY}, 300);	
-
+				
+                x="100px";
+				y="400px";
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
 
 				flag=1;
 			} 
 
 			else{
 
-					console.log(lastX);
-				console.log(lastY);	
-				console.log(eventInfo.data.locationX - lastX);
-				console.log(eventInfo.data.locationY - lastY);
-
 				$('#imageFullScreen').smartZoom("pan",(lastX - eventInfo.data.locationX),(lastY - eventInfo.data.locationY),2000);
 				
 				$(".circle.big").css({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
 				lastX = eventInfo.data.locationX;
 				lastY = eventInfo.data.locationY;	
-					console.log(lastX);
-				console.log(lastY);	
-				
-	       	}
+
+	       	 }
 	       	
 	       	getCharacters(eventInfo.data.characters);
 			$(".item").removeClass('clicked');
