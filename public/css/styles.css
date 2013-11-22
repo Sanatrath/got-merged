@@ -226,7 +226,7 @@ a{
 	display: block;   
 }
 
-.nametag { font-size:3px; position:relative; left: 12px; background: #fff; text-align: center;}
+.nametag { font-size:4px; width: 32px; position:relative; left: -10px ;background: #fff; text-align: center;}
 
 @-webkit-keyframes pop-in {
 0% { opacity: 0; -webkit-transform: scale(0.5); }
