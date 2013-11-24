@@ -23,20 +23,20 @@
 			var flag = 0;
 			$(document).ready(function() {
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
-				
+			/*					
 				$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
-				
+
 				function zoomButtonClickHandler(e){
 			    	var scaleToAdd = 1.5;
 					if(e.target.id == 'zoomOutButton')
 						scaleToAdd = -scaleToAdd;
 					$('#imageFullScreen').smartZoom('zoom', scaleToAdd);
+				
 			    }
 				
-				
+				*/	
 			});
-			$(window).load(function(){
-				//$('#imageFullScreen').smartZoom('zoom', 2, {'x':100,'y':300},300);			
+			$(window).load(function(){			
 				owl = $("#thumbnails");
  
 				  owl.owlCarousel({
@@ -72,12 +72,7 @@
 				    owl.trigger('owl.prev');
 				  })
 
-				//  $("#scene1").on("click", function(){
-				//		$('#imageFullScreen').smartZoom("pan",-1125,-125,2000);
-				//	});
-				
-
-				// Interactions on the event carousel at the bottom
+			 // Interactions on the event carousel at the bottom
 
 					$('#thumbnails .item').on("click",function(){
 						console.log("clicked");
@@ -104,12 +99,14 @@
 			console.log(eventType);
 			if (eventType == "newScene"){
 				handleNewScene(event.eventInfo);
+				console.log( event);
 			}
 			else if (eventType == "moment"){
 				handleMoment(event.eventInfo);
 			}
 			else if (eventType == "character"){
 				handleCharacterEntry(event.eventInfo);
+
 			}
 		});
 		
@@ -118,37 +115,38 @@
 			console.log("Writing new scene info");
 
 			console.log(eventInfo);	
-
-
-
+			
 			//The very first scene we zoom into the map
 			if(eventInfo.event == '0' && flag == 0){
 				
 				lastX = eventInfo.data.locationX;
+
+				lastY = eventInfo.data.locationY;				
+                x="100px";
+				y="400px";
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
 				lastY = eventInfo.data.locationY;
-
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY}, 300);	
-
-
+				
+                x="100px";
+				y="400px";
+				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
 				flag=1;
+					
 			} 
 
 			else{
 
-					console.log(lastX);
-				console.log(lastY);	
-				console.log(eventInfo.data.locationX - lastX);
-				console.log(eventInfo.data.locationY - lastY);
-
 				$('#imageFullScreen').smartZoom("pan",(lastX - eventInfo.data.locationX),(lastY - eventInfo.data.locationY),2000);
 				
-				$(".circle.big").css({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
+				$(".circle.big").css ({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
+				console.log("big-circle");
+				console.log(eventInfo.data.locationX);
+				console.log(eventInfo.data.locationY);
 				lastX = eventInfo.data.locationX;
 				lastY = eventInfo.data.locationY;	
-					console.log(lastX);
-				console.log(lastY);	
-				
-	       	}
+					
+
+	       	 }
 	       	
 	       	getCharacters(eventInfo.data.characters);
 			$(".item").removeClass('clicked');
@@ -184,37 +182,129 @@
 			
 		}
 		
+		/*
 		function getCharacters(characterInfo){
+			
+			var fields, container, width, height;
 			switch (characterInfo.length) {
 				case 2:
-					$('#big-circle').append('<div class="circle one"></div> <div class="circle two"></div>');
-
+					$("#big-circle").html('');
+					$('#big-circle').append('<div class="circle one small"></div> <div class="circle two small"></div>');
 					var family = characterInfo[0].family;
 					var img_url = "assets/headshots/" + family + "/" + characterInfo[0].name + ".png";
-					$('.circle.one').css('background', 'url("'+img_url+'") center').addClass(family);
+					$('.circle.one').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
 
 					family = characterInfo[1].family;
 					img_url = "assets/headshots/" + family + "/" + characterInfo[1].name + ".png";
-					$('.circle.two').css('background', 'url("'+img_url+'") center').addClass(family);	
+					$('.circle.two').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
+
+					var radius = 25;
+					fields = $('.circle.small'); 
+					container = $('#big-circle'); 
+					width = container.width(); 
+					height = container.height();
+
+					var angle = 0, step = (2*Math.PI) / characterInfo.length;
+					fields.each(function() {
+					    var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
+					    var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
+					    if(window.console) {
+					        console.log($(this).text(), x, y);
+					    }
+					    $(this).css({
+					        left: x + 'px',
+					        top: y + 'px'
+					    });
+					    angle += step;
+					});	
 					break;
 				case 3: 
-					console.log("3 people");	
-					$("#big-circle").append('<div class="circle one"></div><div class="circle two"></div><div class="circle three"></div>');
+					console.log("3 people big circle");
+
+					$("#big-circle").html('');	
+					$("#big-circle").append('<div class="circle one small"></div><div class="circle two small"></div><div class="circle three small"></div>');
 
 					var family = characterInfo[0].family;
 					var img_url = "assets/headshots/" + family + "/" + characterInfo[0].name + ".png";
-					$('.circle.one').css('background', 'url("'+img_url+'") center').addClass(family);
+					$('.circle.one').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
 
 					family = characterInfo[1].family;
 					img_url = "assets/headshots/" + family + "/" + characterInfo[1].name + ".png";
-					$('.circle.two').css('background', 'url("'+img_url+'") center').addClass(family);
+					$('.circle.two').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
 
 					family = characterInfo[2].family;
 					img_url = "assets/headshots/" + family + "/" + characterInfo[2].name + ".png";
-					$('.circle.three').css('background', 'url("'+img_url+'") center').addClass(family);	
+					$('.circle.three').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);	
+
+					var radius = 25;
+					fields = $('.circle.small'); 
+					container = $('#big-circle'); 
+					width = container.width(); 
+					height = container.height();
+					var angle = 0, step = (2*Math.PI) / 3;
+					fields.each(function() {
+					    var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
+					    var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
+					    if(window.console) {
+					        console.log($(this).text(), x, y);
+					    }
+					    $(this).css({
+					        left: x + 'px',
+					        top: y + 'px'
+					    });
+					    angle += step;
+					});
 					break;
 			}
+		} */
+
+		function getCharacters(characterInfo){
+				var family, img_url;
+				$("#big-circle").html('');
+				var circleNum = characterInfo.length;
+			    var radius = 25,
+			        smallRadius = 7.5;
+			    var container = $('#big-circle'), 
+			        width = container.width(), 
+			        height = container.height();
+			    var angle = 0, step = (2*Math.PI) / circleNum;
+			    for (var i = circleNum - 1; i >= 0; i--) {
+			        var x = Math.round(width/2 + radius * Math.cos(angle) - smallRadius);
+			        var y = Math.round(height/2 + radius * Math.sin(angle) - smallRadius);
+
+			        family = characterInfo[i].family;
+			        name = characterInfo[i].name;
+					img_url = "assets/headshots/" + family + "/" + name + ".png";
+			        var circleCont = '<div class="circle small"></div>';
+			        var tagCont = '<div class="nametag">' + name + '</div>';
+			        newTag = $(tagCont);
+			        newCircle = $(circleCont);
+			        newCircle.css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);	
+			        newCircle.appendTo($("#big-circle")).append(newTag);
+			        newCircle.css({
+			            left: x + 'px',
+			            top: y + 'px'
+			        });
+			        if ( y>width/2 ) {
+			        	newTag.css({		            
+				           top: '16px'
+				        });
+			        }else{
+			        	newTag.css({		                
+				            bottom: '6px'
+				        });
+			        }
+			        console.log("Here is angle")
+			        console.log(angle);
+			        angle += step;
+
+			       
+			    
+			    }
 		}
+
+
+
 		</script>
 </head>
 <body>
@@ -249,12 +339,12 @@
 		</div>
 	</div>
 	</div>
-
+<!--
 	<div id="positionButtonDiv">
 		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
 		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
 	</div>
-	
+-->	
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
 	  <div>&nbsp;</div>

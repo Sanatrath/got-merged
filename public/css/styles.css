@@ -217,31 +217,16 @@ a{
 	background-color: rgba(255, 255, 255, 0.5);
 	margin: 100px;
 	position: absolute;
-	top: 182px;
-	left:193px;
+	top: 267px;
+	left:10px;
 	border: none;
 }
 
-.one {
-	display: block;
-    left: 0px;
-    top: 0px;
-    
+.small {
+	display: block;   
 }
 
-.two {
-	display: block;
-    right: -5px;
-    top: 0px;
-    
-}
-
-.three {
-	display: block;
-    bottom: -10px;
-    left: 20px;
-    background: url('../assets/headshots/stark/Sansa_Stark.png') center;
-}
+.nametag { font-size:4px; width: 32px; position:relative; left: -10px ;background: #fff; text-align: center;}
 
 @-webkit-keyframes pop-in {
 0% { opacity: 0; -webkit-transform: scale(0.5); }
