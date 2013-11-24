@@ -15,8 +15,9 @@ exports.eventInfo = [
 		"event": 1,
 		"type": "moment",
         "data": {
-            "title": "Moment about king of the north",
-			"description": "",
+            "title": "King of the North",
+			"shortDescription": "Before the Targaryens arrived in Westeros, House Stark ruled the North as an independent kingdom for thousands of years.",
+			"longDescription": "Before the Targaryens arrived in Westeros, House Stark ruled the North as an independent kingdom for thousands of years. During Aegon's War of Conquest, House Stark bent knee to Aegon Targaryen, swearing allegiance to the Iron Throne. However, Joffrey's execution of Eddard Stark has caused the northern lords to rebel, reestablishing Robb as the new king of the north.",
             "timestamp" : 85
         }
     },	
@@ -48,6 +49,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Iron Throne",
+			"shortDescription": "The Iron throne is the throne of Westeros. Originally forged by Aegon the Conqueror with dragon fire.",
+			"longDescription": "The Iron throne is the throne of Westeros. Originally forged by Aegon the Conqueror with dragon fire, it is formed from the swords of those Aegon defeated in battle. It stands as a lesson that no ruler should sit lightly upon the throne, lest they accidentally cut themselves.",
             "timestamp": 132
         }
     },
@@ -78,7 +81,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "White Cloak",
-			"description": "The white cloak is a symbol of the Kingsguard, an elite brotherhood of seven knights sworn to protect the king. They are meant to be the pinnacle of knightly virtue and typically serve in the order for life.",
+			"shortDescription": "The white cloak is a symbol of the Kingsguard, an elite brotherhood of seven knights sworn to protect the king.",
+			"longDescription": "The white cloak is a symbol of the Kingsguard, an elite brotherhood of seven knights sworn to protect the king. They are meant to be the pinnacle of knightly virtue and typically serve in the order for life.",
             "timestamp": 222
         }
     },
@@ -86,8 +90,9 @@ exports.eventInfo = [
         "event": 8,
         "type": "moment",
         "data": {
-            "title": "Jaime killing Mad King",
-			"description": "Jaime Lannister served as a member of King Aerys II's Kingsguard. Despite being sworn to protect him, Jaime eventually turned his sword on the insane monarch, slaying him before the Iron Throne itself.",
+            "title": "The King Slayer",
+			"shortDescription": "Jaime Lannister served as a member of King Aerys II's Kingsguard. Despite being sworn",
+			"longDescription": "Jaime Lannister served as a member of King Aerys II's Kingsguard. Despite being sworn to protect him, Jaime eventually turned his sword on the insane monarch, slaying him before the Iron Throne itself- thus earning the name - The King Slayer.",
             "timestamp":238
         }
     },
@@ -120,7 +125,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Baelish betrayed Ned Stark",
-			"description": "",
+			"shortDescription": "Watch the video flashback",
+			"longDescription": "",
             "timestamp":448
         }
     },
@@ -130,7 +136,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Baelish's feelings for Catelyn",
-			"description": "Petyr Baelish was fostered at Riverrun alongside Catelyn and Lysa Tully. There he grew to love Catelyn, despite the fact that he was too low born to ever hope to wed her. He once challenged Catelyn's betrothed, Brandon Stark, to a duel which he lost. Following this, Hoster Tully soon forced him to leave Riverrun.",
+			"shortDescription": "Petyr Baelish was fostered at Riverrun alongside Catelyn and Lysa Tully. There he grew to love Catelyn",
+			"longDescription": "Petyr Baelish was fostered at Riverrun alongside Catelyn and Lysa Tully. There he grew to love Catelyn, despite the fact that he was too low born to ever hope to wed her. He once challenged Catelyn's betrothed, Brandon Stark, to a duel which he lost. Following this, Hoster Tully soon forced him to leave Riverrun.",
             "timestamp":465
         }
     },
@@ -140,7 +147,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Silent Sisters",
-			"description": "The Silent Sisters are a religious order of women who are sworn to tend the dead. These women take vows of silence and prepare bodies for funeral. To signify their holy status, they wear large back braces painted with the Seven Pointed Star.",
+			"shortDescription": "The Silent Sisters are a religious order of women who are sworn to tend the dead.",
+			"longDescription": "The Silent Sisters are a religious order of women who are sworn to tend the dead. These women take vows of silence and prepare bodies for funeral. To signify their holy status, they wear large back braces painted with the Seven Pointed Star.",
             "timestamp":584
         }
     },
@@ -162,7 +170,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Lord of light",
-			"description": "R'hllor is a god of fire and light whose religion is based in the east. His religion is based in the belief that there is a single, all powerful god who provides life and light.  Stannis is one of the first lords in Westeros to adopt the religion, thanks largely to the priestess Melisandre.",
+			"shortDescription": "R'hllor is a god of fire and light whose religion is based in the east.",
+			"longDescription": "R'hllor is a god of fire and light whose religion is based in the east. His religion is based in the belief that there is a single, all powerful god who provides life and light.  Stannis is one of the first lords in Westeros to adopt the religion, thanks largely to the priestess Melisandre.",
             "timestamp":695
         }
     },
@@ -171,7 +180,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Salt and smoke",
-			"description": "The Warrior of Light is the reincarnation of Azor Ahai, a legendary warrior who will wield the flaming sword Lightbringer against the coming darkness. According to prophesy, he will be reborn 'amidst smoke and salt'.",
+			"shortDescription": "According to prophesy, the Warrior of Light will be reborn 'amidst smoke and salt'.",
+			"longDescription": "The Warrior of Light is the reincarnation of Azor Ahai, a legendary warrior who will wield the flaming sword Lightbringer against the coming darkness. According to prophesy, he will be reborn 'amidst smoke and salt'.",
             "timestamp":725
         }
     },
@@ -194,6 +204,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Mother of dragons",
+			"shortDescription": "Watch the video playback",
+			"longDescription": "Watch the video playback",
 			"description": "",
             "timestamp":900
         }
@@ -203,7 +215,8 @@ exports.eventInfo = [
         "type": "moment",
         "data": {
             "title": "Summer Isles",
-			"description": "The Summer Isles are a large archipelago of islands that exist far to the south-east of Westeros.",
+			"shortDescription": "The Summer Isles are a large archipelago of islands that exist far to the south-east of Westeros.",
+			"longDescription": "The Summer Isles are a large archipelago of islands that exist far to the south-east of Westeros.",
             "timestamp":908
         }
     }

@@ -89,8 +89,8 @@
 					
 					$(".circle").delay(300).show();
 
-				$(".moment").click(function(){
-				    $("#moments img").animate({marginTop:'-14px', opacity:1},300);
+				$("#scene1").on ("mouseout", function(){
+
 				  })
 		});
 		
@@ -160,10 +160,22 @@
 			if (eventInfo.data.scene > maxScene)
 				maxScene= eventInfo.data.scene;
 		}
-
+		/*<div class="momentCard">
+			<div class="momentImg">
+				<img src=""/>
+			</div>
+			<div class="momentContent">
+				<div class="momentTitle"></div>
+				<div class="momentDescription"></div>
+			</div>
+		</div>*/
 		function handleMoment(eventInfo){
-			console.log("yeah. I am trying to show you a moment");	
-			console.log(eventInfo);	
+			console.log("yeah. I am trying to show you a moment");
+			console.log(eventInfo);
+			$(".momentImg img").attr("src", "assets/moments/moment"+eventInfo.event+".jpg");
+			$(".momentTitle").html(eventInfo.data.title);
+			$(".momentDescription").html(eventInfo.data.shortDescription);
+		    $("#moments").animate({top:'380px', opacity:1},300).delay(3500).animate({top:'750px', opacity:0},300);
 			
 		}
 		function handleCharacterEntry(eventInfo){
@@ -225,8 +237,16 @@
 		</div>
 		
 		
-		<div id="moments">
-			<img src="assets/iron_throne_card.png" />
+	<div id="moments">
+		<div class="momentCard">
+			<div class="momentImg">
+				<img src=""/>
+			</div>
+			<div class="momentContent">
+				<div class="momentTitle"></div>
+				<div class="momentDescription"></div>
+			</div>
+		</div>
 	</div>
 	</div>
 

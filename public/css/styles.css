@@ -269,29 +269,52 @@ a{
 	border-color: #fff;
 }
 
+/*#app #moments img{
+	width: 340px;
+	margin-top: 283px;
+	//margin-top:-14px;
+	margin-left:-11px;
+	opacity: 0;
+}*/
+
+.next{
+	display: none;
+}
+
 #app #moments{
-	height: 283px;
-	width: 318px;
 	position: relative;
 	float: right;
-	top: 400px;
+	top: 750px;
 	right:65px;
 	z-index: 400;
 	-webkit-border-radius: 3px;
 	  -moz-border-radius: 3px;
 	  border-radius: 3px;
 	  overflow: hidden;
-	
+	opacity:1;
 }
 
-#app #moments img{
-	width: 340px;
-	margin-top: 283px;
-	//margin-top:-14px;
-	margin-left:-11px;
-	opacity: 0
+.momentCard{
+	height: 300px;
+	width: 320px;
+	-webkit-box-shadow: 0 3px 7px rgba(34, 25, 25, 0.6);
+	-moz-box-shadow: 0 3px 7px rgba(34, 25, 25, 0.6);
+	box-shadow: 0 1px 5px rgba(34, 25, 25, 0.6);
+	background-color: #FFF;
 }
-
-.next{
-	display: none;
+.momentImg{
+	width: 320px;
+}
+.momentContent{
+	padding: 10px 20px 15px;
+	height: 95px;
+	overflow: hidden;
+}
+.momentTitle{
+	font-size:24px;
+	font-weight:700;
+	margin-bottom:5px;
+}
+.momentDescription{
+	text-align:left;
 }

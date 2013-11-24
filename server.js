@@ -34,6 +34,9 @@ app.get('/client', function(req, res){
 app.get('/test', function(req, res){
   res.render('test.ejs');
 });
+app.get('/card', function(req, res){
+  res.render('card.ejs');
+});
 
 server.listen(appPort);
 console.log("Server listening on port 11000");
