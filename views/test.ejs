@@ -23,18 +23,7 @@
 			var flag = 0;
 			$(document).ready(function() {
 				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
-			/*					
-				$('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
 
-				function zoomButtonClickHandler(e){
-			    	var scaleToAdd = 1.5;
-					if(e.target.id == 'zoomOutButton')
-						scaleToAdd = -scaleToAdd;
-					$('#imageFullScreen').smartZoom('zoom', scaleToAdd);
-				
-			    }
-				
-				*/	
 			});
 			$(window).load(function(){			
 				owl = $("#thumbnails");
@@ -110,7 +99,12 @@
 				  })
 		});
 		
+<<<<<<< HEAD
         var socket = io.connect('http://128.61.23.30:11000');		
+=======
+        var socket = io.connect('http://localhost:11000');
+
+>>>>>>> 01d223077a6cc72ef7d875f1728a1233ca545fb9
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
@@ -130,43 +124,81 @@
 
 			}
 		});
+		socket.on('incomingDialog', function  (event) {
+			var dialogType = event.dialogInfo.type;
+			console.log(dialogType);
+			if (dialogType == "startTalking"){
+				handleCharacterSpeaking(event.dialogInfo);			
+			}
+			else if (dialogType == "stopTalking"){
+				handleCharaterStops(event.dialogInfo);
+			}			
+		});
+
 		
 		function handleNewScene(eventInfo){
 			
 			console.log("Writing new scene info");
 
 			console.log(eventInfo);	
+			 //var pan_index=$('#pan_index');
+
+				var image= $('#imageFullScreen');
+
 			
+		     last_panX = -20;
+		     last_panY = -794;
+		     panX=0;
+		     panY=0;
+			 
+		   
 			//The very first scene we zoom into the map
 			if(eventInfo.event == '0' && flag == 0){
 				
 				lastX = eventInfo.data.locationX;
-
 				lastY = eventInfo.data.locationY;				
-                x="100px";
-				y="400px";
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
-				lastY = eventInfo.data.locationY;
+               $('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
 				
-                x="100px";
-				y="400px";
-				$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
-				flag=1;
-					
+				flag=1;			
+
 			} 
+
 
 			else{
 
-				$('#imageFullScreen').smartZoom("pan",(lastX - eventInfo.data.locationX),(lastY - eventInfo.data.locationY),2000);
-				
-				$(".circle.big").css ({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
-				console.log("big-circle");
-				console.log(eventInfo.data.locationX);
-				console.log(eventInfo.data.locationY);
-				lastX = eventInfo.data.locationX;
-				lastY = eventInfo.data.locationY;	
-					
+				curr_panX = ~~image.position().left;
+				curr_panY = ~~image.position().top;
 
+              // if user has not panned then do not add pan pixels      
+			 // if user has panned to the left then subtract pan pixels in x-direction
+			
+			 console.log(last_panX);
+			 console.log(last_panY);
+			 console.log(curr_panX);
+			 console.log(curr_panY);
+
+				if(curr_panX < last_panX)
+					     panX = last_panX - curr_panX;
+			    else if(curr_panX > last_panX)
+			    	     panX = last_panX + curr_panX;
+
+
+              // if user has panned to the bottom then subtract pan pixels in y-direction
+				if(curr_panY > last_panY)
+					     panY = last_panY + curr_panY;
+			    else if(curr_panY < last_panY)
+			    	     panY = last_panY - curr_panY;
+
+               console.log(panX);
+               console.log(panY);
+
+				$('#imageFullScreen').smartZoom("pan",(lastX + panX - eventInfo.data.locationX),(lastY + panY - eventInfo.data.locationY),3000);
+				$(".circle.big").css ({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
+
+				lastX = eventInfo.data.locationX;
+				lastY = eventInfo.data.locationY;
+				last_panX = ~~image.position().left;
+		        last_panY = ~~image.position().top;					
 	       	 }
 	       	
 	       	getCharacters(eventInfo.data.characters);
@@ -197,82 +229,17 @@
 			getCharacters(eventInfo.data.characters);
 			
 		}
-		
-		/*
-		function getCharacters(characterInfo){
-			
-			var fields, container, width, height;
-			switch (characterInfo.length) {
-				case 2:
-					$("#big-circle").html('');
-					$('#big-circle').append('<div class="circle one small"></div> <div class="circle two small"></div>');
-					var family = characterInfo[0].family;
-					var img_url = "assets/headshots/" + family + "/" + characterInfo[0].name + ".png";
-					$('.circle.one').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
 
-					family = characterInfo[1].family;
-					img_url = "assets/headshots/" + family + "/" + characterInfo[1].name + ".png";
-					$('.circle.two').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
-
-					var radius = 25;
-					fields = $('.circle.small'); 
-					container = $('#big-circle'); 
-					width = container.width(); 
-					height = container.height();
-
-					var angle = 0, step = (2*Math.PI) / characterInfo.length;
-					fields.each(function() {
-					    var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
-					    var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
-					    if(window.console) {
-					        console.log($(this).text(), x, y);
-					    }
-					    $(this).css({
-					        left: x + 'px',
-					        top: y + 'px'
-					    });
-					    angle += step;
-					});	
-					break;
-				case 3: 
-					console.log("3 people big circle");
-
-					$("#big-circle").html('');	
-					$("#big-circle").append('<div class="circle one small"></div><div class="circle two small"></div><div class="circle three small"></div>');
-
-					var family = characterInfo[0].family;
-					var img_url = "assets/headshots/" + family + "/" + characterInfo[0].name + ".png";
-					$('.circle.one').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
-
-					family = characterInfo[1].family;
-					img_url = "assets/headshots/" + family + "/" + characterInfo[1].name + ".png";
-					$('.circle.two').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);
-
-					family = characterInfo[2].family;
-					img_url = "assets/headshots/" + family + "/" + characterInfo[2].name + ".png";
-					$('.circle.three').css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);	
-
-					var radius = 25;
-					fields = $('.circle.small'); 
-					container = $('#big-circle'); 
-					width = container.width(); 
-					height = container.height();
-					var angle = 0, step = (2*Math.PI) / 3;
-					fields.each(function() {
-					    var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
-					    var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
-					    if(window.console) {
-					        console.log($(this).text(), x, y);
-					    }
-					    $(this).css({
-					        left: x + 'px',
-					        top: y + 'px'
-					    });
-					    angle += step;
-					});
-					break;
-			}
-		} */
+		function handleCharacterSpeaking(dialogInfo){			
+			var charactername = '#' + dialogInfo.character;
+			$(charactername).addClass("speaking");
+			//console.log(dialogInfo.character);
+		}
+		function handleCharaterStops(dialogInfo){		
+			var charactername = '#' + dialogInfo.character;
+			$(charactername).removeClass("speaking");
+			//console.log(dialogInfo.character);
+		}
 
 		function getCharacters(characterInfo){
 				var family, img_url;
@@ -290,9 +257,11 @@
 
 			        family = characterInfo[i].family;
 			        name = characterInfo[i].name;
+			        realname = name.replace("_"," ");
+
 					img_url = "assets/headshots/" + family + "/" + name + ".png";
 			        var circleCont = '<div class="circle small"></div>';
-			        var tagCont = '<div class="nametag">' + name + '</div>';
+			        var tagCont = '<div class="nametag" id="'+ name + '">' + realname + '</div>';
 			        newTag = $(tagCont);
 			        newCircle = $(circleCont);
 			        newCircle.css({'background':'url("'+img_url+'") center', 'background-size':'cover'}).addClass(family);	
@@ -307,11 +276,9 @@
 				        });
 			        }else{
 			        	newTag.css({		                
-				            bottom: '6px'
+				            bottom: '10px'
 				        });
 			        }
-			        console.log("Here is angle")
-			        console.log(angle);
 			        angle += step;
 
 			       
@@ -327,18 +294,23 @@
 <div id="app">
 	<div class="name"><h1>Scene Name</h1></div>
 	<div id="pageContent">
+			 	
 		<div id="imgContainer"> 
+<<<<<<< HEAD
 		
 <div id="imageFullScreen">
 			 	
+=======
+			 
+     <div id="imageFullScreen">
+
+
+>>>>>>> 01d223077a6cc72ef7d875f1728a1233ca545fb9
 			 	<div id="big-circle" class="circle big">
 				 		
 			    </div>
 			    <img class="mapper" src="assets/map.jpg" alt="map"/>
 			 </div>
-
-			 <!-- <img id="imageFullScreen" src="assets/map.jpg" alt="map"/> -->
-			 	
 			 </div>
 		<div id="hideMomentsBg"></div> 
 		<img id="seeAllMoments" src="assets/up-arrow.png" alt="See all moments"/>
@@ -348,6 +320,7 @@
 	<div id="moments">
 
 	</div>
+<<<<<<< HEAD
 </div>
 <!--
 	<div id="positionButtonDiv">
@@ -355,6 +328,9 @@
 		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
 	</div>
 -->	
+=======
+
+>>>>>>> 01d223077a6cc72ef7d875f1728a1233ca545fb9
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
 	  <div>&nbsp;</div>

@@ -10,6 +10,7 @@ var http = require('http')
   , io = require('socket.io').listen(server);
 
 var eventInfo = require('./data/got-data').eventInfo;
+var dialogInfo = require('./data/dialog-data').dialogInfo;
 // Views Options
 
 app.set('views', __dirname + '/views');
@@ -50,6 +51,9 @@ io.sockets.on('connection', function (socket) { // First connection
 	});
 	socket.on('eventBroadcast', function (data) { // Broadcast the message to all
 		io.sockets.emit('incomingEvent', {eventInfo: eventInfo[data.eventIndex]});
+	});
+	socket.on('dialogBroadcast', function (data) { // Broadcast the dialog message to all
+		io.sockets.emit('incomingDialog', {dialogInfo: dialogInfo[data.dialogIndex]});
 	});
 	socket.on('changeScene', function (data) { // Broadcast the message to all
 		io.sockets.emit('changeSceneOnPlayer', {index: data.index});
