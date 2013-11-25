@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Game of Thrones</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
-<script src="http://localhost:11000/socket.io/socket.io.js"></script>
+<script src="http://128.61.23.30:11000/socket.io/socket.io.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/e-smart-zoom-jquery.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
@@ -81,6 +81,27 @@
 						console.log($('#thumbnails .item').index(this));
 						 owl.trigger('owl.goTo',$('#thumbnails .item').index(this));
 					});
+
+					$('#seeAllMoments').toggle(
+						function() {
+							$(this).css("-webkit-transform", "rotate(180deg)");
+							var numCards = $(".momentCard").length -1;
+							var bottomScroll = numCards*310 - 380;
+							if(bottomScroll > 0)
+								bottomScroll = 0;
+							$("#moments").animate({bottom: bottomScroll}, 300);
+							$("#hideMomentsBg").show();
+							$(".momentCard").each(function(i){$(this).css("top", (i*310)+"px") });
+							$("#moments").scrollTop(10000);
+							$('#seeAllMoments').animate({top: 0}, 300);
+						}, 
+						function() {
+							$(this).css("-webkit-transform", "rotate(0deg)");
+							$("#moments").animate({bottom: "-690px"}, 300);
+							$("#hideMomentsBg").hide();
+							$('#seeAllMoments').animate({top: 640}, 300);
+						}
+					);
 					
 					$(".circle").delay(300).show();
 
@@ -89,7 +110,7 @@
 				  })
 		});
 		
-        var socket = io.connect('http://localhost:11000');		
+        var socket = io.connect('http://128.61.23.30:11000');		
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
@@ -158,26 +179,21 @@
 			if (eventInfo.data.scene > maxScene)
 				maxScene= eventInfo.data.scene;
 		}
-		/*<div class="momentCard">
-			<div class="momentImg">
-				<img src=""/>
-			</div>
-			<div class="momentContent">
-				<div class="momentTitle"></div>
-				<div class="momentDescription"></div>
-			</div>
-		</div>*/
+
 		function handleMoment(eventInfo){
 			console.log("yeah. I am trying to show you a moment");
 			console.log(eventInfo);
-			$(".momentImg img").attr("src", "assets/moments/moment"+eventInfo.event+".jpg");
-			$(".momentTitle").html(eventInfo.data.title);
-			$(".momentDescription").html(eventInfo.data.shortDescription);
-		    $("#moments").animate({top:'380px', opacity:1},300).delay(3500).animate({top:'750px', opacity:0},300);
-			
+			//$("#moments").height($("#moments").height()+310);
+			$("#moments").append('<div id="moment'+eventInfo.event+'" class="momentCard"><div class="momentImg"><img src="assets/moments/moment'+eventInfo.event+'.jpg"/></div><div class="momentContent"><div class="momentTitle">'+eventInfo.data.title+'</div><div class="momentDescription">'+eventInfo.data.shortDescription+'</div></div></div>');
+			$("#moment"+eventInfo.event).css("top","0px");
+			$("#moments").animate({bottom:'-380px'},300).delay(3500).animate({bottom:'-690px'},300);
+			$("#seeAllMoments").show().animate({top:'330px'},300).delay(3500).animate({top:'640px'},300);
+		    //$("#moment"+eventInfo.event).animate({top:'0', opacity:1},300).delay(3500).animate({top:'375px', opacity:1},300);
+		    //$("#seeAllMoments").animate({top:'-40px', opacity:1},300).delay(3500).animate({top:'268px', opacity:0.8},300);
 		}
+	
 		function handleCharacterEntry(eventInfo){
-			console.log("try");	
+			console.log("try");
 			getCharacters(eventInfo.data.characters);
 			
 		}
@@ -312,7 +328,7 @@
 	<div class="name"><h1>Scene Name</h1></div>
 	<div id="pageContent">
 		<div id="imgContainer"> 
-			 
+		
 <div id="imageFullScreen">
 			 	
 			 	<div id="big-circle" class="circle big">
@@ -324,21 +340,15 @@
 			 <!-- <img id="imageFullScreen" src="assets/map.jpg" alt="map"/> -->
 			 	
 			 </div>
+		<div id="hideMomentsBg"></div> 
+		<img id="seeAllMoments" src="assets/up-arrow.png" alt="See all moments"/>
 		</div>
 		
 		
 	<div id="moments">
-		<div class="momentCard">
-			<div class="momentImg">
-				<img src=""/>
-			</div>
-			<div class="momentContent">
-				<div class="momentTitle"></div>
-				<div class="momentDescription"></div>
-			</div>
-		</div>
+
 	</div>
-	</div>
+</div>
 <!--
 	<div id="positionButtonDiv">
 		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 

@@ -25,6 +25,7 @@
 	
 	var triggerTimes = [12,85,90,130,132,170,204,222,238,303,439,448,465,584,663,695,725,844,900,908];
 	var sceneTimes = [12,130,303,439,663,844];
+	var dialogueTimes = [12,130,303,439,663,844];
 	
 	videojs("videoPlayer").ready(function(){
 		socket.emit('videoStart', {message: "The video has started"}); //send to client that the video has started
