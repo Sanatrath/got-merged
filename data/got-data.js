@@ -58,7 +58,7 @@ exports.eventInfo = [
 		"event": 5,
 		"type": "character",
         "data": {
-            "timestamp": 170,`
+            "timestamp": 170,
             "characters":[{ "name": "Joffrey_Baratheon", "family": "baratheon"},
                           {"name": "Sansa_Stark", "family": "stark"},
                           {"name": "Meryn_Trent", "family": "trent"}]

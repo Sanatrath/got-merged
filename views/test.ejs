@@ -6,11 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Game of Thrones</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
-<<<<<<< HEAD
-<script src="http://128.61.57.62:11000/socket.io/socket.io.js"></script>
-=======
 <script src="http://128.61.23.30:11000/socket.io/socket.io.js"></script>
->>>>>>> bdfa0450a729be127029310e8665cd62c1ffefbd
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/e-smart-zoom-jquery.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
@@ -104,16 +100,9 @@
 				  })
 		});
 		
-<<<<<<< HEAD
-        var socket = io.connect('http://128.61.57.62:11000');
-=======
-<<<<<<< HEAD
-        var socket = io.connect('http://128.61.23.30:11000');		
-=======
-        var socket = io.connect('http://localhost:11000');
->>>>>>> bdfa0450a729be127029310e8665cd62c1ffefbd
 
->>>>>>> 01d223077a6cc72ef7d875f1728a1233ca545fb9
+        var socket = io.connect('http://localhost:11000');
+
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
 		});
@@ -318,16 +307,9 @@
 	<div id="pageContent">
 			 	
 		<div id="imgContainer"> 
-<<<<<<< HEAD
-		
-<div id="imageFullScreen">
-			 	
-=======
 			 
      <div id="imageFullScreen">
 
-
->>>>>>> 01d223077a6cc72ef7d875f1728a1233ca545fb9
 			 	<div id="big-circle" class="circle big">
 				 		
 			    </div>
@@ -342,21 +324,15 @@
 	<div id="moments">
 
 	</div>
-<<<<<<< HEAD
+
 </div>
 <!--
 	<div id="positionButtonDiv">
 		<img id="zoomInButton" class="zoomButton" src="assets/zoomin.png" title="zoom in" alt="zoom in" /> 
 		<img id="zoomOutButton" class="zoomButton" src="assets/zoomout.png" title="zoom out" alt="zoom out" />
 	</div>
-<<<<<<< HEAD
-	
-=======
--->	
-=======
 
->>>>>>> 01d223077a6cc72ef7d875f1728a1233ca545fb9
->>>>>>> bdfa0450a729be127029310e8665cd62c1ffefbd
+-->	
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
 
