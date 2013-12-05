@@ -23,6 +23,8 @@ background-color: #FFFFFF;
 h1{
 	margin: 0px;
 }
+
+
 #app {
 	width: 1024px;
 	height: 748px;
@@ -226,7 +228,7 @@ a{
 }
 
 .speaking {
-    background:#ffefb6!important;
+    background:#9c9ede!important;
 }
 
 .speaking:after {
@@ -234,7 +236,7 @@ a{
     height: 0;
     border-left: 3px solid transparent;
     border-right: 3px solid transparent;
-    border-top: 2px solid #ffefb6;
+    border-top: 2px solid #9c9ede;
     display:block;
     content: " ";
     position:absolute;

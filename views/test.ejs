@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Game of Thrones</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
-<script src="http://localhost:11000/socket.io/socket.io.js"></script>
+<script src="http://128.61.57.62:11000/socket.io/socket.io.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/e-smart-zoom-jquery.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
@@ -22,7 +22,8 @@
 			var owl;
 			var flag = 0;
 			$(document).ready(function() {
-				$('#imageFullScreen').smartZoom({'maxScale':5,'containerClass':'zoomableContainer'});
+				$('#imageFullScreen').smartZoom({'maxScale':4,'containerClass':'zoomableContainer',
+		      'dblTapEnabled' : false});
 
 			});
 			$(window).load(function(){			
@@ -78,7 +79,7 @@
 				  })
 		});
 		
-        var socket = io.connect('http://localhost:11000');
+        var socket = io.connect('http://128.61.57.62:11000');
 
 		socket.on('videoStart', function  (data) {
 			$("#eventListing").append('<p>' + data.message + '</p>');
@@ -101,7 +102,7 @@
 		});
 		socket.on('incomingDialog', function  (event) {
 			var dialogType = event.dialogInfo.type;
-			console.log(dialogType);
+			//console.log(dialogType);
 			if (dialogType == "startTalking"){
 				handleCharacterSpeaking(event.dialogInfo);			
 			}
@@ -118,7 +119,7 @@
 			console.log(eventInfo);	
 			 //var pan_index=$('#pan_index');
 
-				var image= $('#imageFullScreen');
+			var image= $('#imageFullScreen');
 
 			
 		     last_panX = -20;
@@ -126,24 +127,35 @@
 		     panX=0;
 		     panY=0;
 			 
-		   
+		  // if(ClientRect.width == 4096 && ClientRect.height == 2992)
+             //    $('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
 			//The very first scene we zoom into the map
 			if(eventInfo.event == '0' && flag == 0){
 				
 				lastX = eventInfo.data.locationX;
 				lastY = eventInfo.data.locationY;				
                $('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
-				
+                ClientRect= $('#imageFullScreen')[0].getBoundingClientRect();
+               console.log(ClientRect.width);
+               console.log(ClientRect.height);
+               
+			//	console.log($('#mapper').height());
 				flag=1;			
 
 			} 
-
+           
 
 			else{
 
+               ClientRect= $('#imageFullScreen')[0].getBoundingClientRect();
+               console.log(ClientRect.width);
+               console.log(ClientRect.height);
+
+               
+
 				curr_panX = ~~image.position().left;
 				curr_panY = ~~image.position().top;
-
+           
               // if user has not panned then do not add pan pixels      
 			 // if user has panned to the left then subtract pan pixels in x-direction
 			
@@ -167,8 +179,10 @@
                console.log(panX);
                console.log(panY);
 
-				$('#imageFullScreen').smartZoom("pan",(lastX + panX - eventInfo.data.locationX),(lastY + panY - eventInfo.data.locationY),3000);
-				$(".circle.big").css ({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
+               $('#imageFullScreen').smartZoom("pan",(lastX + panX - eventInfo.data.locationX),(lastY + panY - eventInfo.data.locationY),3000);
+
+                //$('#imageFullScreen').smartZoom('zoom', 2, {'x':lastX,'y':lastY+130}, 300);
+                  $(".circle.big").css ({top: (eventInfo.data.locationY) , left:(eventInfo.data.locationX)});
 
 				lastX = eventInfo.data.locationX;
 				lastY = eventInfo.data.locationY;
@@ -293,12 +307,15 @@
 		</div>
 	</div>
 	</div>
-
+	
 	<div id="scenes">
 	<div id="thumbnails" class="owl-carousel owl-theme">
+
 	  <div>&nbsp;</div>
 	  <div>&nbsp;</div>
-		<div id="scene0" class="item orange">
+		
+
+        <div id="scene0" class="item orange">
 			<img src="assets/timeline/scene0.jpg"/>
 		</div>
 		<div id="scene1" class="item orange">
@@ -313,11 +330,12 @@
 		<div id="scene4" class="item orange">
 			<img src="assets/timeline/scene4.jpg"/>
 		</div>
-	</div>
-	 	
+		</div>
+     	
 	  <a class="move-left btn prev">
 		  <img src="assets/slider-left.png" />
 	  </a>
+
 	  <a class="move-right btn next"> 
 		  <img src="assets/slider-right.png" />
 		  
@@ -326,8 +344,9 @@
 	  <a class="move-right pause btn"> 
 		  <img src="assets/pause.png" />
 	  </a>
-	  
+	  	
 	</div>
+
 	
 
 </div>
